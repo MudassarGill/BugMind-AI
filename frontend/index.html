@@ -108,13 +108,29 @@
           <span class="tab-close" onclick="event.stopPropagation()">&times;</span>
         </button>
         <div class="editor-tab-separator">
+          <button class="btn-run" id="btn-run" onclick="runCode()">
+            <i class="fas fa-play"></i> Run
+          </button>
+          <button class="btn-toolbar" id="btn-save" onclick="saveCode()" title="Save Code (Ctrl+S)">
+            <i class="fas fa-save"></i>
+          </button>
+          <button class="btn-toolbar" id="btn-clear" onclick="clearConsole()" title="Clear Console">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+          <button class="btn-fullscreen" id="btn-fullscreen" onclick="toggleFullscreen()" title="Toggle Fullscreen (F11)">
+            <i class="fas fa-expand"></i>
+          </button>
+          <select id="theme-select" onchange="changeEditorTheme(this.value)" style="background:var(--bg-hover); color:var(--text-secondary); border:1px solid var(--border-color); border-radius:var(--radius-sm); padding:4px 8px; font-size:11px; font-family:'Inter',sans-serif; cursor:pointer;">
+            <option value="bugmind-dark">BugMind Dark</option>
+            <option value="monokai">Monokai</option>
+            <option value="github-dark">GitHub Dark</option>
+            <option value="solarized-dark">Solarized</option>
+            <option value="vs-dark">VS Dark</option>
+          </select>
           <div class="tab-language">
             <i class="fab fa-python"></i>
             <span>Python</span>
           </div>
-          <span class="tab-actions" style="color:var(--text-tertiary); cursor:pointer; font-size:16px;">
-            <i class="fas fa-ellipsis-h"></i>
-          </span>
         </div>
       </div>
 

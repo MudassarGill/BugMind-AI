@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="BugMind AI Community - Connect, share, and learn with other developers">
+  <title>BugMind AI — Community</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>html, body { overflow: auto; }</style>
+</head>
+<body>
+
+  <!-- =========== TOP NAVIGATION BAR =========== -->
+  <header class="topbar">
+    <div class="topbar-logo" onclick="location.href='index.html'">
+      <img src="assets/logo-icon.svg" alt="BugMind AI" class="logo-icon-img">
+      <span class="logo-text">BugMind AI</span>
+    </div>
+    <nav class="topbar-nav">
+      <a href="index.html" id="nav-dashboard">
+        <span class="nav-icon"><i class="fas fa-columns"></i></span> Dashboard
+      </a>
+      <a href="dashboard.html" id="nav-learning">
+        <span class="nav-icon"><i class="fas fa-graduation-cap"></i></span> Learning Hub
+      </a>
+      <a href="community.html" class="active" id="nav-community">
+        <span class="nav-icon"><i class="fas fa-users"></i></span> Community
+      </a>
+      <a href="settings.html" id="nav-settings">
+        <span class="nav-icon"><i class="fas fa-sliders-h"></i></span> Settings
+      </a>
+    </nav>
+    <div class="topbar-user" id="user-menu">
+      <div class="user-avatar">MH</div>
+      <span class="user-name">User</span>
+      <span class="user-dropdown"><i class="fas fa-chevron-down"></i></span>
+    </div>
+  </header>
+
+  <!-- =========== COMMUNITY CONTENT =========== -->
+  <div class="dashboard-content">
+    <div class="dashboard-greeting">
+      <h1>👥 Community Hub</h1>
+      <p>Connect with fellow developers, share solutions, and climb the leaderboard.</p>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon blue"><i class="fas fa-users"></i></div>
+        <div class="stat-value">1,247</div>
+        <div class="stat-label">Active Members</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon green"><i class="fas fa-comments"></i></div>
+        <div class="stat-value">3,892</div>
+        <div class="stat-label">Discussions</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon purple"><i class="fas fa-lightbulb"></i></div>
+        <div class="stat-value">856</div>
+        <div class="stat-label">Solutions Shared</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:var(--accent-gold-dim)"><i class="fas fa-crown" style="color:var(--accent-gold)"></i></div>
+        <div class="stat-value">#12</div>
+        <div class="stat-label">Your Rank</div>
+      </div>
+    </div>
+
+    <div class="dashboard-grid">
+      <!-- Leaderboard -->
+      <div class="dashboard-card">
+        <div class="dashboard-card-header">
+          <h3><i class="fas fa-trophy" style="color:var(--accent-gold); margin-right:8px;"></i> Leaderboard</h3>
+          <div class="card-filter">This Week <i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div style="padding:0 4px;">
+          <div class="community-rank-item" style="background:linear-gradient(135deg, rgba(240,192,64,0.12), rgba(240,192,64,0.03)); border:1px solid rgba(240,192,64,0.15);">
+            <span class="rank-badge gold">1</span>
+            <div class="rank-avatar" style="background:linear-gradient(135deg, #f0c040, #f59e0b);">AK</div>
+            <div class="rank-info">
+              <span class="rank-name">Ahmed Khan</span>
+              <span class="rank-score">2,450 XP</span>
+            </div>
+            <i class="fas fa-crown" style="color:var(--accent-gold); font-size:16px;"></i>
+          </div>
+          <div class="community-rank-item">
+            <span class="rank-badge silver">2</span>
+            <div class="rank-avatar" style="background:linear-gradient(135deg, #a78bfa, #7c3aed);">SR</div>
+            <div class="rank-info">
+              <span class="rank-name">Sara Rizwan</span>
+              <span class="rank-score">2,180 XP</span>
+            </div>
+          </div>
+          <div class="community-rank-item">
+            <span class="rank-badge bronze">3</span>
+            <div class="rank-avatar" style="background:linear-gradient(135deg, #fb923c, #ea580c);">FA</div>
+            <div class="rank-info">
+              <span class="rank-name">Fatima Ali</span>
+              <span class="rank-score">1,920 XP</span>
+            </div>
+          </div>
+          <div class="community-rank-item">
+            <span class="rank-badge">4</span>
+            <div class="rank-avatar" style="background:linear-gradient(135deg, #22d3ee, #06b6d4);">US</div>
+            <div class="rank-info">
+              <span class="rank-name">Usman Siddiqui</span>
+              <span class="rank-score">1,780 XP</span>
+            </div>
+          </div>
+          <div class="community-rank-item">
+            <span class="rank-badge">5</span>
+            <div class="rank-avatar" style="background:linear-gradient(135deg, #4ade80, #16a34a);">ZH</div>
+            <div class="rank-info">
+              <span class="rank-name">Zainab Hussain</span>
+              <span class="rank-score">1,650 XP</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Discussions -->
+      <div class="dashboard-card">
+        <div class="dashboard-card-header">
+          <h3><i class="fas fa-comments" style="color:var(--accent-blue); margin-right:8px;"></i> Recent Discussions</h3>
+          <button class="btn-autofix" style="font-size:11px; padding:4px 12px;" onclick="alert('New post feature coming soon!')">
+            <i class="fas fa-plus"></i> New Post
+          </button>
+        </div>
+
+        <div class="discussion-item">
+          <div class="discussion-votes">
+            <i class="fas fa-chevron-up" style="cursor:pointer; color:var(--accent-green);"></i>
+            <span>24</span>
+          </div>
+          <div class="discussion-content">
+            <h4>How to handle TypeError in Python list comprehensions?</h4>
+            <div class="discussion-meta">
+              <span><i class="fas fa-user"></i> Ahmed Khan</span>
+              <span><i class="fas fa-clock"></i> 2 hours ago</span>
+              <span><i class="fas fa-comment"></i> 8 replies</span>
+              <span class="discussion-tag">TypeError</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="discussion-item">
+          <div class="discussion-votes">
+            <i class="fas fa-chevron-up" style="cursor:pointer; color:var(--text-tertiary);"></i>
+            <span>18</span>
+          </div>
+          <div class="discussion-content">
+            <h4>Best practices for input validation in Python</h4>
+            <div class="discussion-meta">
+              <span><i class="fas fa-user"></i> Sara Rizwan</span>
+              <span><i class="fas fa-clock"></i> 5 hours ago</span>
+              <span><i class="fas fa-comment"></i> 12 replies</span>
+              <span class="discussion-tag" style="background:var(--accent-green-dim); color:var(--accent-green);">Tips</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="discussion-item">
+          <div class="discussion-votes">
+            <i class="fas fa-chevron-up" style="cursor:pointer; color:var(--text-tertiary);"></i>
+            <span>15</span>
+          </div>
+          <div class="discussion-content">
+            <h4>Understanding recursion with factorial examples</h4>
+            <div class="discussion-meta">
+              <span><i class="fas fa-user"></i> Usman S.</span>
+              <span><i class="fas fa-clock"></i> 1 day ago</span>
+              <span><i class="fas fa-comment"></i> 6 replies</span>
+              <span class="discussion-tag" style="background:var(--accent-purple-dim); color:var(--accent-purple);">Tutorial</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="discussion-item">
+          <div class="discussion-votes">
+            <i class="fas fa-chevron-up" style="cursor:pointer; color:var(--text-tertiary);"></i>
+            <span>9</span>
+          </div>
+          <div class="discussion-content">
+            <h4>How do I fix "list index out of range"?</h4>
+            <div class="discussion-meta">
+              <span><i class="fas fa-user"></i> Zainab H.</span>
+              <span><i class="fas fa-clock"></i> 2 days ago</span>
+              <span><i class="fas fa-comment"></i> 4 replies</span>
+              <span class="discussion-tag" style="background:var(--accent-orange-dim); color:var(--accent-orange);">IndexError</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Challenges Section -->
+    <div class="dashboard-card" style="margin-bottom:40px;">
+      <div class="dashboard-card-header">
+        <h3><i class="fas fa-bolt" style="color:var(--accent-cyan); margin-right:8px;"></i> Weekly Challenges</h3>
+      </div>
+      <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:14px;">
+        <div class="practice-item" style="flex-direction:column; align-items:flex-start; padding:18px;">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+            <div class="practice-icon" style="background:var(--accent-blue-dim);"><i class="fas fa-puzzle-piece" style="color:var(--accent-blue);"></i></div>
+            <span class="discussion-tag" style="background:var(--accent-green-dim); color:var(--accent-green);">Active</span>
+          </div>
+          <span style="font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:4px;">Fix the Bug</span>
+          <span style="font-size:12px; color:var(--text-tertiary); margin-bottom:8px;">Find and fix 5 TypeError bugs</span>
+          <div class="topic-progress" style="width:100%;"><div class="progress-fill" style="width:60%; background:var(--accent-blue);"></div></div>
+          <span style="font-size:11px; color:var(--text-tertiary); margin-top:4px;">3/5 completed</span>
+        </div>
+        <div class="practice-item" style="flex-direction:column; align-items:flex-start; padding:18px;">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+            <div class="practice-icon" style="background:var(--accent-gold-dim);"><i class="fas fa-code" style="color:var(--accent-gold);"></i></div>
+            <span class="discussion-tag" style="background:var(--accent-gold-dim); color:var(--accent-gold);">New</span>
+          </div>
+          <span style="font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:4px;">Code Streak</span>
+          <span style="font-size:12px; color:var(--text-tertiary); margin-bottom:8px;">Run code for 7 days straight</span>
+          <div class="topic-progress" style="width:100%;"><div class="progress-fill" style="width:71%; background:var(--accent-gold);"></div></div>
+          <span style="font-size:11px; color:var(--text-tertiary); margin-top:4px;">5/7 days</span>
+        </div>
+        <div class="practice-item" style="flex-direction:column; align-items:flex-start; padding:18px;">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+            <div class="practice-icon" style="background:var(--accent-purple-dim);"><i class="fas fa-users" style="color:var(--accent-purple);"></i></div>
+            <span class="discussion-tag" style="background:var(--accent-orange-dim); color:var(--accent-orange);">Upcoming</span>
+          </div>
+          <span style="font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:4px;">Help Others</span>
+          <span style="font-size:12px; color:var(--text-tertiary); margin-bottom:8px;">Reply to 3 community questions</span>
+          <div class="topic-progress" style="width:100%;"><div class="progress-fill" style="width:0%; background:var(--accent-purple);"></div></div>
+          <span style="font-size:11px; color:var(--text-tertiary); margin-top:4px;">Starts Monday</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Update user display
+    const user = JSON.parse(localStorage.getItem('bugmind_user') || 'null');
+    if (user) {
+      const un = document.querySelector('.user-name');
+      const ua = document.querySelector('.user-avatar');
+      if (un) un.textContent = user.name || 'User';
+      if (ua) ua.textContent = (user.name || 'U').substring(0, 2).toUpperCase();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="BugMind AI Settings - Customize your coding experience">
+  <title>BugMind AI — Settings</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>html, body { overflow: auto; }</style>
+</head>
+<body>
+
+  <!-- =========== TOP NAVIGATION BAR =========== -->
+  <header class="topbar">
+    <div class="topbar-logo" onclick="location.href='index.html'">
+      <img src="assets/logo-icon.svg" alt="BugMind AI" class="logo-icon-img">
+      <span class="logo-text">BugMind AI</span>
+    </div>
+    <nav class="topbar-nav">
+      <a href="index.html" id="nav-dashboard">
+        <span class="nav-icon"><i class="fas fa-columns"></i></span> Dashboard
+      </a>
+      <a href="dashboard.html" id="nav-learning">
+        <span class="nav-icon"><i class="fas fa-graduation-cap"></i></span> Learning Hub
+      </a>
+      <a href="community.html" id="nav-community">
+        <span class="nav-icon"><i class="fas fa-users"></i></span> Community
+      </a>
+      <a href="settings.html" class="active" id="nav-settings">
+        <span class="nav-icon"><i class="fas fa-sliders-h"></i></span> Settings
+      </a>
+    </nav>
+    <div class="topbar-user" id="user-menu">
+      <div class="user-avatar">MH</div>
+      <span class="user-name">User</span>
+      <span class="user-dropdown"><i class="fas fa-chevron-down"></i></span>
+    </div>
+  </header>
+
+  <!-- =========== SETTINGS CONTENT =========== -->
+  <div class="dashboard-content">
+    <div class="dashboard-greeting">
+      <h1>⚙️ Settings</h1>
+      <p>Customize your BugMind AI experience.</p>
+    </div>
+
+    <div class="settings-layout">
+      <!-- LEFT: Settings Nav -->
+      <div class="settings-nav">
+        <button class="settings-nav-item active" onclick="showSettingsTab(this, 'tab-appearance')">
+          <i class="fas fa-palette"></i> Appearance
+        </button>
+        <button class="settings-nav-item" onclick="showSettingsTab(this, 'tab-editor')">
+          <i class="fas fa-code"></i> Editor
+        </button>
+        <button class="settings-nav-item" onclick="showSettingsTab(this, 'tab-profile')">
+          <i class="fas fa-user"></i> Profile
+        </button>
+        <button class="settings-nav-item" onclick="showSettingsTab(this, 'tab-account')">
+          <i class="fas fa-shield-alt"></i> Account
+        </button>
+      </div>
+
+      <!-- RIGHT: Settings Panels -->
+      <div class="settings-panels">
+
+        <!-- ===== APPEARANCE TAB ===== -->
+        <div class="settings-panel active" id="tab-appearance">
+          <h2>Appearance</h2>
+          <p class="settings-desc">Customize how BugMind AI looks.</p>
+
+          <div class="setting-group">
+            <label class="setting-label">App Theme</label>
+            <div class="theme-grid">
+              <div class="theme-card active" data-theme="dark-navy" onclick="selectAppTheme(this, 'dark-navy')">
+                <div class="theme-preview" style="background:#0a0e1a;">
+                  <div style="background:#161b2e; height:8px; border-radius:3px; margin-bottom:4px;"></div>
+                  <div style="background:#1a1f35; height:20px; border-radius:3px; margin-bottom:4px;"></div>
+                  <div style="display:flex; gap:3px;">
+                    <div style="background:#4a7cff; height:6px; width:30%; border-radius:2px;"></div>
+                    <div style="background:#252b48; height:6px; flex:1; border-radius:2px;"></div>
+                  </div>
+                </div>
+                <span>Dark Navy</span>
+                <i class="fas fa-check-circle theme-check"></i>
+              </div>
+              <div class="theme-card" data-theme="midnight" onclick="selectAppTheme(this, 'midnight')">
+                <div class="theme-preview" style="background:#0d1117;">
+                  <div style="background:#161b22; height:8px; border-radius:3px; margin-bottom:4px;"></div>
+                  <div style="background:#1c2128; height:20px; border-radius:3px; margin-bottom:4px;"></div>
+                  <div style="display:flex; gap:3px;">
+                    <div style="background:#58a6ff; height:6px; width:30%; border-radius:2px;"></div>
+                    <div style="background:#21262d; height:6px; flex:1; border-radius:2px;"></div>
+                  </div>
+                </div>
+                <span>Midnight</span>
+                <i class="fas fa-check-circle theme-check"></i>
+              </div>
+              <div class="theme-card" data-theme="abyss" onclick="selectAppTheme(this, 'abyss')">
+                <div class="theme-preview" style="background:#000c18;">
+                  <div style="background:#051336; height:8px; border-radius:3px; margin-bottom:4px;"></div>
+                  <div style="background:#082050; height:20px; border-radius:3px; margin-bottom:4px;"></div>
+                  <div style="display:flex; gap:3px;">
+                    <div style="background:#6796e6; height:6px; width:30%; border-radius:2px;"></div>
+                    <div style="background:#0e3a6e; height:6px; flex:1; border-radius:2px;"></div>
+                  </div>
+                </div>
+                <span>Abyss</span>
+                <i class="fas fa-check-circle theme-check"></i>
+              </div>
+              <div class="theme-card" data-theme="dracula" onclick="selectAppTheme(this, 'dracula')">
+                <div class="theme-preview" style="background:#282a36;">
+                  <div style="background:#343746; height:8px; border-radius:3px; margin-bottom:4px;"></div>
+                  <div style="background:#3e4154; height:20px; border-radius:3px; margin-bottom:4px;"></div>
+                  <div style="display:flex; gap:3px;">
+                    <div style="background:#bd93f9; height:6px; width:30%; border-radius:2px;"></div>
+                    <div style="background:#44475a; height:6px; flex:1; border-radius:2px;"></div>
+                  </div>
+                </div>
+                <span>Dracula</span>
+                <i class="fas fa-check-circle theme-check"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">Font Size</label>
+            <div class="setting-row">
+              <input type="range" min="12" max="20" value="14" class="setting-range" id="font-size-range" oninput="document.getElementById('font-size-val').textContent = this.value + 'px'">
+              <span id="font-size-val" class="setting-value">14px</span>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">UI Animations</label>
+            <div class="setting-row">
+              <span class="setting-desc-inline">Enable smooth animations and transitions</span>
+              <label class="toggle-switch">
+                <input type="checkbox" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== EDITOR TAB ===== -->
+        <div class="settings-panel" id="tab-editor">
+          <h2>Editor Settings</h2>
+          <p class="settings-desc">Customize the code editor experience.</p>
+
+          <div class="setting-group">
+            <label class="setting-label">Code Theme</label>
+            <div class="theme-grid">
+              <div class="theme-card active" data-editor-theme="bugmind-dark" onclick="selectEditorTheme(this, 'bugmind-dark')">
+                <div class="theme-preview" style="background:#141828; font-family:'JetBrains Mono',monospace; font-size:8px; padding:6px; line-height:1.4;">
+                  <span style="color:#c792ea;">def</span> <span style="color:#82aaff;">hello</span><span style="color:#89ddff;">()</span><span style="color:#89ddff;">:</span><br>
+                  <span style="color:#e8ecf4;">&nbsp;&nbsp;print</span><span style="color:#89ddff;">(</span><span style="color:#ecc48d;">"Hi"</span><span style="color:#89ddff;">)</span>
+                </div>
+                <span>BugMind Dark</span>
+                <i class="fas fa-check-circle theme-check"></i>
+              </div>
+              <div class="theme-card" data-editor-theme="monokai" onclick="selectEditorTheme(this, 'monokai')">
+                <div class="theme-preview" style="background:#272822; font-family:'JetBrains Mono',monospace; font-size:8px; padding:6px; line-height:1.4;">
+                  <span style="color:#f92672;">def</span> <span style="color:#a6e22e;">hello</span><span style="color:#f8f8f2;">()</span><span style="color:#f8f8f2;">:</span><br>
+                  <span style="color:#f8f8f2;">&nbsp;&nbsp;print</span><span style="color:#f8f8f2;">(</span><span style="color:#e6db74;">"Hi"</span><span style="color:#f8f8f2;">)</span>
+                </div>
+                <span>Monokai</span>
+                <i class="fas fa-check-circle theme-check"></i>
+              </div>
+              <div class="theme-card" data-editor-theme="github-dark" onclick="selectEditorTheme(this, 'github-dark')">
+                <div class="theme-preview" style="background:#0d1117; font-family:'JetBrains Mono',monospace; font-size:8px; padding:6px; line-height:1.4;">
+                  <span style="color:#ff7b72;">def</span> <span style="color:#d2a8ff;">hello</span><span style="color:#c9d1d9;">()</span><span style="color:#c9d1d9;">:</span><br>
+                  <span style="color:#c9d1d9;">&nbsp;&nbsp;print</span><span style="color:#c9d1d9;">(</span><span style="color:#a5d6ff;">"Hi"</span><span style="color:#c9d1d9;">)</span>
+                </div>
+                <span>GitHub Dark</span>
+                <i class="fas fa-check-circle theme-check"></i>
+              </div>
+              <div class="theme-card" data-editor-theme="solarized" onclick="selectEditorTheme(this, 'solarized')">
+                <div class="theme-preview" style="background:#002b36; font-family:'JetBrains Mono',monospace; font-size:8px; padding:6px; line-height:1.4;">
+                  <span style="color:#b58900;">def</span> <span style="color:#268bd2;">hello</span><span style="color:#839496;">()</span><span style="color:#839496;">:</span><br>
+                  <span style="color:#839496;">&nbsp;&nbsp;print</span><span style="color:#839496;">(</span><span style="color:#2aa198;">"Hi"</span><span style="color:#839496;">)</span>
+                </div>
+                <span>Solarized</span>
+                <i class="fas fa-check-circle theme-check"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">Editor Font Size</label>
+            <div class="setting-row">
+              <input type="range" min="12" max="24" value="15" class="setting-range" id="editor-font-range" oninput="document.getElementById('editor-font-val').textContent = this.value + 'px'">
+              <span id="editor-font-val" class="setting-value">15px</span>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">Mini Map</label>
+            <div class="setting-row">
+              <span class="setting-desc-inline">Show minimap in editor sidebar</span>
+              <label class="toggle-switch">
+                <input type="checkbox" id="toggle-minimap">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">Word Wrap</label>
+            <div class="setting-row">
+              <span class="setting-desc-inline">Wrap long lines instead of horizontal scrolling</span>
+              <label class="toggle-switch">
+                <input type="checkbox" checked id="toggle-wordwrap">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">Line Numbers</label>
+            <div class="setting-row">
+              <span class="setting-desc-inline">Show line numbers in editor gutter</span>
+              <label class="toggle-switch">
+                <input type="checkbox" checked id="toggle-linenumbers">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">Bracket Colorization</label>
+            <div class="setting-row">
+              <span class="setting-desc-inline">Color matching brackets for easy identification</span>
+              <label class="toggle-switch">
+                <input type="checkbox" checked id="toggle-brackets">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== PROFILE TAB ===== -->
+        <div class="settings-panel" id="tab-profile">
+          <h2>Profile</h2>
+          <p class="settings-desc">Manage your public profile information.</p>
+
+          <div class="setting-group">
+            <div class="profile-header">
+              <div class="profile-avatar-large">MH</div>
+              <div>
+                <h3 id="profile-name">Mudassar Hussain</h3>
+                <p style="color:var(--text-tertiary); font-size:13px;">Member since March 2026</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">Display Name</label>
+            <input type="text" class="setting-input" id="profile-display-name" value="Mudassar Hussain">
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">Email</label>
+            <input type="email" class="setting-input" id="profile-email" value="mudassar@example.com" disabled style="opacity:0.6;">
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label">Bio</label>
+            <textarea class="setting-input" rows="3" style="resize:vertical;" placeholder="Tell the community about yourself...">AI/ML enthusiast learning Python with BugMind AI 🧠</textarea>
+          </div>
+
+          <button class="btn-primary" style="width:auto; padding:10px 28px;" onclick="saveProfile()">
+            <i class="fas fa-save"></i> Save Profile
+          </button>
+        </div>
+
+        <!-- ===== ACCOUNT TAB ===== -->
+        <div class="settings-panel" id="tab-account">
+          <h2>Account & Security</h2>
+          <p class="settings-desc">Manage your account security settings.</p>
+
+          <div class="setting-group">
+            <label class="setting-label">Change Password</label>
+            <input type="password" class="setting-input" placeholder="Current password" style="margin-bottom:8px;">
+            <input type="password" class="setting-input" placeholder="New password" style="margin-bottom:8px;">
+            <input type="password" class="setting-input" placeholder="Confirm new password">
+            <button class="btn-primary" style="width:auto; padding:8px 20px; margin-top:12px; font-size:12px;" onclick="alert('Password updated!')">
+              Update Password
+            </button>
+          </div>
+
+          <div class="setting-group" style="border-top:1px solid var(--border-color); padding-top:20px;">
+            <label class="setting-label">Sessions</label>
+            <div class="setting-row" style="background:var(--bg-card); padding:12px 16px; border-radius:var(--radius-md); border:1px solid var(--border-color);">
+              <div>
+                <span style="font-size:13px; font-weight:600; color:var(--text-primary);"><i class="fas fa-desktop" style="color:var(--accent-green); margin-right:6px;"></i> Current Session</span>
+                <p style="font-size:11px; color:var(--text-tertiary); margin-top:2px;">Windows • Chrome • Active now</p>
+              </div>
+              <span style="font-size:11px; color:var(--accent-green); font-weight:600;">Active</span>
+            </div>
+          </div>
+
+          <div class="setting-group" style="border-top:1px solid var(--border-color); padding-top:20px;">
+            <label class="setting-label" style="color:var(--accent-red);">Danger Zone</label>
+            <button style="background:var(--accent-red-dim); color:var(--accent-red); border:1px solid rgba(248,113,113,0.3); padding:8px 20px; border-radius:var(--radius-sm); font-family:'Inter',sans-serif; font-size:12px; font-weight:600; cursor:pointer;" onclick="logout()">
+              <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Settings tab switching
+    function showSettingsTab(btn, tabId) {
+      document.querySelectorAll('.settings-nav-item').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.settings-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+    }
+
+    // App theme selection
+    function selectAppTheme(card, theme) {
+      document.querySelectorAll('.theme-card[data-theme]').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      localStorage.setItem('bugmind_app_theme', theme);
+      showToast('🎨 Theme changed to ' + card.querySelector('span').textContent);
+    }
+
+    // Editor theme selection
+    function selectEditorTheme(card, theme) {
+      document.querySelectorAll('.theme-card[data-editor-theme]').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      localStorage.setItem('bugmind_editor_theme', theme);
+      showToast('✅ Editor theme changed to ' + card.querySelector('span').textContent);
+    }
+
+    function saveProfile() {
+      const name = document.getElementById('profile-display-name').value;
+      const user = JSON.parse(localStorage.getItem('bugmind_user') || '{}');
+      user.name = name;
+      localStorage.setItem('bugmind_user', JSON.stringify(user));
+      showToast('✅ Profile saved!');
+    }
+
+    function logout() {
+      localStorage.removeItem('bugmind_token');
+      localStorage.removeItem('bugmind_user');
+      window.location.href = 'login.html';
+    }
+
+    function showToast(message) {
+      const existing = document.querySelector('.toast-notification');
+      if (existing) existing.remove();
+      const toast = document.createElement('div');
+      toast.className = 'toast-notification';
+      toast.style.cssText = 'position:fixed; bottom:60px; right:24px; background:var(--accent-blue-dim); color:var(--accent-blue); padding:12px 20px; border-radius:10px; font-size:13px; font-weight:500; font-family:"Inter",sans-serif; z-index:9999; animation:popupSlideIn 0.3s ease; backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.06); box-shadow:0 8px 32px rgba(0,0,0,0.3);';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'all 0.3s ease'; setTimeout(() => toast.remove(), 300); }, 3000);
+    }
+
+    // Load user info
+    const user = JSON.parse(localStorage.getItem('bugmind_user') || 'null');
+    if (user) {
+      document.querySelector('.user-name').textContent = user.name || 'User';
+      document.querySelector('.user-avatar').textContent = (user.name || 'U').substring(0, 2).toUpperCase();
+      document.getElementById('profile-name').textContent = user.name || 'User';
+      document.getElementById('profile-display-name').value = user.name || '';
+      document.getElementById('profile-email').value = user.email || '';
+      document.querySelector('.profile-avatar-large').textContent = (user.name || 'U').substring(0, 2).toUpperCase();
+    }
+
+    // Load saved theme
+    const savedAppTheme = localStorage.getItem('bugmind_app_theme');
+    if (savedAppTheme) {
+      document.querySelectorAll('.theme-card[data-theme]').forEach(c => {
+        c.classList.toggle('active', c.dataset.theme === savedAppTheme);
+      });
+    }
+    const savedEditorTheme = localStorage.getItem('bugmind_editor_theme');
+    if (savedEditorTheme) {
+      document.querySelectorAll('.theme-card[data-editor-theme]').forEach(c => {
+        c.classList.toggle('active', c.dataset.editorTheme === savedEditorTheme);
+      });
+    }
+  </script>
+</body>
+</html>

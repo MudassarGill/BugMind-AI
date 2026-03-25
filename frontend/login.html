@@ -7,13 +7,13 @@
   <title>BugMind AI — Login</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>html, body { overflow: auto; height: auto; }</style>
 </head>
 <body>
   <div class="auth-page">
     <div class="auth-card">
       <div class="auth-logo">
         <img src="assets/logo.svg" alt="BugMind AI" class="auth-logo-img">
-
       </div>
       <p class="auth-subtitle">Welcome back! Login to continue coding.</p>
 
@@ -49,12 +49,14 @@
 
       <div class="form-divider">or continue with</div>
 
-      <button class="btn-social" id="btn-github">
-        <i class="fab fa-github"></i> GitHub
-      </button>
-      <button class="btn-social" id="btn-google">
-        <i class="fab fa-google"></i> Google
-      </button>
+      <div style="display:flex; gap:10px; margin-bottom:20px;">
+        <button class="btn-social" id="btn-github" style="flex:1;">
+          <i class="fab fa-github"></i> GitHub
+        </button>
+        <button class="btn-social" id="btn-google" style="flex:1;">
+          <i class="fab fa-google"></i> Google
+        </button>
+      </div>
 
       <p class="auth-footer">
         Don't have an account? <a href="signup.html">Sign up</a>
@@ -63,22 +65,37 @@
   </div>
 
   <script>
-    function handleLogin(e) {
+    const API_BASE = 'http://localhost:8000/api';
+
+    async function handleLogin(e) {
       e.preventDefault();
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
-      
-      // Mock login - store in localStorage for now
-      const users = JSON.parse(localStorage.getItem('bugmind_users') || '[]');
-      const user = users.find(u => u.email === email);
-      
-      if (user && user.password === password) {
-        localStorage.setItem('bugmind_current_user', JSON.stringify(user));
+      const btn = document.getElementById('btn-login');
+
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch(`${API_BASE}/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || 'Login failed');
+
+        localStorage.setItem('bugmind_token', data.token);
+        localStorage.setItem('bugmind_user', JSON.stringify(data.user));
         window.location.href = 'index.html';
-      } else if (!user) {
-        showError('No account found with this email. Please sign up first.');
-      } else {
-        showError('Incorrect password. Please try again.');
+      } catch (err) {
+        if (err.message === 'Failed to fetch') {
+          showError('Backend not running. Run: cd backend && python main.py');
+        } else {
+          showError(err.message);
+        }
+        btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+        btn.disabled = false;
       }
       return false;
     }
@@ -86,15 +103,17 @@
     function showError(msg) {
       let existing = document.querySelector('.auth-error');
       if (existing) existing.remove();
-      
       const div = document.createElement('div');
       div.className = 'auth-error';
       div.style.cssText = 'background:var(--accent-red-dim); color:var(--accent-red); padding:10px 14px; border-radius:8px; font-size:13px; margin-bottom:16px; display:flex; align-items:center; gap:8px; animation:cardFadeIn 0.3s ease;';
       div.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + msg;
-      
       document.getElementById('login-form').prepend(div);
       setTimeout(() => div.remove(), 5000);
     }
+
+    // Social login mock
+    document.getElementById('btn-github')?.addEventListener('click', () => showError('GitHub login coming soon!'));
+    document.getElementById('btn-google')?.addEventListener('click', () => showError('Google login coming soon!'));
   </script>
 </body>
 </html>

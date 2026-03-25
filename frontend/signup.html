@@ -7,13 +7,13 @@
   <title>BugMind AI — Sign Up</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>html, body { overflow: auto; height: auto; }</style>
 </head>
 <body>
   <div class="auth-page">
     <div class="auth-card">
       <div class="auth-logo">
         <img src="assets/logo.svg" alt="BugMind AI" class="auth-logo-img">
-
       </div>
       <p class="auth-subtitle">Create your account and start coding smarter.</p>
 
@@ -57,12 +57,14 @@
 
       <div class="form-divider">or sign up with</div>
 
-      <button class="btn-social" id="btn-github">
-        <i class="fab fa-github"></i> GitHub
-      </button>
-      <button class="btn-social" id="btn-google">
-        <i class="fab fa-google"></i> Google
-      </button>
+      <div style="display:flex; gap:10px; margin-bottom:20px;">
+        <button class="btn-social" id="btn-github" style="flex:1;">
+          <i class="fab fa-github"></i> GitHub
+        </button>
+        <button class="btn-social" id="btn-google" style="flex:1;">
+          <i class="fab fa-google"></i> Google
+        </button>
+      </div>
 
       <p class="auth-footer">
         Already have an account? <a href="login.html">Login</a>
@@ -71,53 +73,50 @@
   </div>
 
   <script>
-    function handleSignup(e) {
+    const API_BASE = 'http://localhost:8000/api';
+
+    async function handleSignup(e) {
       e.preventDefault();
       const name = document.getElementById('fullname').value;
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
       const confirm = document.getElementById('confirm-password').value;
 
-      if (password !== confirm) {
-        showError('Passwords do not match!');
-        return false;
+      if (password !== confirm) { showError('Passwords do not match!'); return false; }
+      if (password.length < 6) { showError('Password must be at least 6 characters.'); return false; }
+
+      const btn = document.getElementById('btn-signup');
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating account...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch(`${API_BASE}/auth/signup`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, password })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || 'Signup failed');
+
+        localStorage.setItem('bugmind_token', data.token);
+        localStorage.setItem('bugmind_user', JSON.stringify(data.user));
+        showSuccess('Account created! Redirecting...');
+        setTimeout(() => window.location.href = 'index.html', 1500);
+      } catch (err) {
+        if (err.message === 'Failed to fetch') {
+          showError('Backend not running. Run: cd backend && python main.py');
+        } else {
+          showError(err.message);
+        }
+        btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
+        btn.disabled = false;
       }
-
-      if (password.length < 6) {
-        showError('Password must be at least 6 characters.');
-        return false;
-      }
-
-      // Mock signup - store in localStorage
-      const users = JSON.parse(localStorage.getItem('bugmind_users') || '[]');
-      
-      if (users.find(u => u.email === email)) {
-        showError('An account with this email already exists.');
-        return false;
-      }
-
-      const newUser = {
-        id: Date.now(),
-        name,
-        email,
-        password,
-        createdAt: new Date().toISOString(),
-        stats: { totalErrors: 0, codeRuns: 0, errorTypes: {} }
-      };
-
-      users.push(newUser);
-      localStorage.setItem('bugmind_users', JSON.stringify(users));
-      localStorage.setItem('bugmind_current_user', JSON.stringify(newUser));
-      
-      showSuccess('Account created! Redirecting...');
-      setTimeout(() => window.location.href = 'index.html', 1500);
       return false;
     }
 
     function showError(msg) {
       let existing = document.querySelector('.auth-error');
       if (existing) existing.remove();
-      
       const div = document.createElement('div');
       div.className = 'auth-error';
       div.style.cssText = 'background:var(--accent-red-dim); color:var(--accent-red); padding:10px 14px; border-radius:8px; font-size:13px; margin-bottom:16px; display:flex; align-items:center; gap:8px; animation:cardFadeIn 0.3s ease;';
@@ -129,13 +128,16 @@
     function showSuccess(msg) {
       let existing = document.querySelector('.auth-success');
       if (existing) existing.remove();
-      
       const div = document.createElement('div');
       div.className = 'auth-success';
       div.style.cssText = 'background:var(--accent-green-dim); color:var(--accent-green); padding:10px 14px; border-radius:8px; font-size:13px; margin-bottom:16px; display:flex; align-items:center; gap:8px; animation:cardFadeIn 0.3s ease;';
       div.innerHTML = '<i class="fas fa-check-circle"></i> ' + msg;
       document.getElementById('signup-form').prepend(div);
     }
+
+    // Social login mock
+    document.getElementById('btn-github')?.addEventListener('click', () => showError('GitHub signup coming soon!'));
+    document.getElementById('btn-google')?.addEventListener('click', () => showError('Google signup coming soon!'));
   </script>
 </body>
 </html>
