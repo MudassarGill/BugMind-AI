@@ -154,6 +154,35 @@ a:hover {
   box-shadow: 0 0 12px rgba(74, 124, 255, 0.3);
 }
 
+/* SVG Logo Images */
+.logo-icon-img {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.3));
+}
+
+.ai-icon-img {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.3));
+}
+
+.brand-logo-img {
+  width: 20px;
+  height: 20px;
+  filter: drop-shadow(0 0 4px rgba(0, 229, 255, 0.2));
+}
+
+.auth-logo-img {
+  width: 220px;
+  height: auto;
+  filter: drop-shadow(0 0 16px rgba(0, 229, 255, 0.25));
+  margin: 0 auto;
+  display: block;
+}
+
 .topbar-logo .logo-text {
   font-size: 18px;
   font-weight: 700;
