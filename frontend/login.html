@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Login to BugMind AI - Your AI-powered coding assistant">
+  <title>BugMind AI — Login</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <div class="auth-page">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <div class="logo-icon">🧠</div>
+        <h1>BugMind AI</h1>
+      </div>
+      <p class="auth-subtitle">Welcome back! Login to continue coding.</p>
+
+      <form id="login-form" onsubmit="return handleLogin(event)">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <div class="input-icon">
+            <span class="icon"><i class="fas fa-envelope"></i></span>
+            <input type="email" id="email" placeholder="you@example.com" required autocomplete="email">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-icon">
+            <span class="icon"><i class="fas fa-lock"></i></span>
+            <input type="password" id="password" placeholder="Enter your password" required autocomplete="current-password">
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <label style="display:flex; align-items:center; gap:6px; cursor:pointer; font-size:13px; color:var(--text-secondary); text-transform:none; letter-spacing:0;">
+            <input type="checkbox" style="width:auto; accent-color:var(--accent-blue);">
+            Remember me
+          </label>
+          <a href="#" style="font-size:13px;">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn-primary" id="btn-login">
+          <i class="fas fa-sign-in-alt"></i> Login
+        </button>
+      </form>
+
+      <div class="form-divider">or continue with</div>
+
+      <button class="btn-social" id="btn-github">
+        <i class="fab fa-github"></i> GitHub
+      </button>
+      <button class="btn-social" id="btn-google">
+        <i class="fab fa-google"></i> Google
+      </button>
+
+      <p class="auth-footer">
+        Don't have an account? <a href="signup.html">Sign up</a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      
+      // Mock login - store in localStorage for now
+      const users = JSON.parse(localStorage.getItem('bugmind_users') || '[]');
+      const user = users.find(u => u.email === email);
+      
+      if (user && user.password === password) {
+        localStorage.setItem('bugmind_current_user', JSON.stringify(user));
+        window.location.href = 'index.html';
+      } else if (!user) {
+        showError('No account found with this email. Please sign up first.');
+      } else {
+        showError('Incorrect password. Please try again.');
+      }
+      return false;
+    }
+
+    function showError(msg) {
+      let existing = document.querySelector('.auth-error');
+      if (existing) existing.remove();
+      
+      const div = document.createElement('div');
+      div.className = 'auth-error';
+      div.style.cssText = 'background:var(--accent-red-dim); color:var(--accent-red); padding:10px 14px; border-radius:8px; font-size:13px; margin-bottom:16px; display:flex; align-items:center; gap:8px; animation:cardFadeIn 0.3s ease;';
+      div.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + msg;
+      
+      document.getElementById('login-form').prepend(div);
+      setTimeout(() => div.remove(), 5000);
+    }
+  </script>
+</body>
+</html>

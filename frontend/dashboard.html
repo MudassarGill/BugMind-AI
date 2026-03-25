@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="BugMind AI Learning Dashboard - Track your coding progress and analytics">
+  <title>BugMind AI — Learning Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    /* Override body for dashboard scrolling */
+    html, body { overflow: auto; }
+  </style>
+</head>
+<body>
+
+  <!-- =========== TOP NAVIGATION BAR =========== -->
+  <header class="topbar">
+    <div class="topbar-logo" onclick="location.href='index.html'">
+      <div class="logo-icon">🧠</div>
+      <span class="logo-text">BugMind AI</span>
+    </div>
+
+    <nav class="topbar-nav">
+      <a href="index.html" id="nav-dashboard">
+        <span class="nav-icon"><i class="fas fa-columns"></i></span>
+        Dashboard
+      </a>
+      <a href="dashboard.html" class="active" id="nav-learning">
+        <span class="nav-icon"><i class="fas fa-graduation-cap"></i></span>
+        Learning Hub
+      </a>
+      <a href="#" id="nav-community">
+        <span class="nav-icon"><i class="fas fa-users"></i></span>
+        Community
+      </a>
+      <a href="#" id="nav-settings">
+        <span class="nav-icon"><i class="fas fa-sliders-h"></i></span>
+        Settings
+      </a>
+    </nav>
+
+    <div class="topbar-user" id="user-menu">
+      <div class="user-avatar">MH</div>
+      <span class="user-name">Soyle</span>
+      <span class="user-dropdown"><i class="fas fa-chevron-down"></i></span>
+    </div>
+  </header>
+
+  <!-- =========== DASHBOARD CONTENT =========== -->
+  <div class="dashboard-content">
+    <!-- Greeting -->
+    <div class="dashboard-greeting">
+      <h1>📊 Learning Hub</h1>
+      <p>Track your coding progress, common mistakes, and get personalized recommendations.</p>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon blue"><i class="fas fa-code"></i></div>
+        <div class="stat-value" id="stat-runs">47</div>
+        <div class="stat-label">Code Runs</div>
+        <span class="stat-change up"><i class="fas fa-arrow-up"></i> 12% this week</span>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon red"><i class="fas fa-bug"></i></div>
+        <div class="stat-value" id="stat-errors">23</div>
+        <div class="stat-label">Total Errors</div>
+        <span class="stat-change down"><i class="fas fa-arrow-down"></i> 8% this week</span>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon green"><i class="fas fa-check-circle"></i></div>
+        <div class="stat-value" id="stat-fixes">18</div>
+        <div class="stat-label">Auto Fixes Applied</div>
+        <span class="stat-change up"><i class="fas fa-arrow-up"></i> 24% this week</span>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon purple"><i class="fas fa-trophy"></i></div>
+        <div class="stat-value" id="stat-streak">5</div>
+        <div class="stat-label">Day Streak 🔥</div>
+        <span class="stat-change up"><i class="fas fa-arrow-up"></i> Keep going!</span>
+      </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="dashboard-grid">
+      <!-- Error Trend Chart -->
+      <div class="dashboard-card">
+        <div class="dashboard-card-header">
+          <h3><i class="fas fa-chart-line" style="color:var(--accent-blue); margin-right:8px;"></i> Error Trend</h3>
+          <div class="card-filter">Last 7 days <i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="chart-container">
+          <canvas id="errorTrendChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Error Distribution -->
+      <div class="dashboard-card">
+        <div class="dashboard-card-header">
+          <h3><i class="fas fa-chart-pie" style="color:var(--accent-purple); margin-right:8px;"></i> Error Types</h3>
+          <div class="card-filter">All Time <i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="chart-container">
+          <canvas id="errorTypesChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Weak Topics & Recent Errors -->
+    <div class="dashboard-grid">
+      <!-- Weak Topics -->
+      <div class="dashboard-card">
+        <div class="dashboard-card-header">
+          <h3><i class="fas fa-exclamation-triangle" style="color:var(--accent-gold); margin-right:8px;"></i> Weak Topics</h3>
+        </div>
+        <div class="topic-item">
+          <div class="topic-icon" style="background:var(--accent-red-dim)"><span style="color:var(--accent-red)">🔤</span></div>
+          <div class="topic-info">
+            <div class="topic-name">String Operations</div>
+            <div class="topic-progress"><div class="progress-fill" style="width:35%; background:var(--accent-red);"></div></div>
+          </div>
+          <span class="topic-pct">35%</span>
+        </div>
+        <div class="topic-item">
+          <div class="topic-icon" style="background:var(--accent-orange-dim)"><span style="color:var(--accent-orange)">🔢</span></div>
+          <div class="topic-info">
+            <div class="topic-name">Type Conversion</div>
+            <div class="topic-progress"><div class="progress-fill" style="width:48%; background:var(--accent-orange);"></div></div>
+          </div>
+          <span class="topic-pct">48%</span>
+        </div>
+        <div class="topic-item">
+          <div class="topic-icon" style="background:var(--accent-gold-dim)"><span style="color:var(--accent-gold)">🔁</span></div>
+          <div class="topic-info">
+            <div class="topic-name">Loops & Iteration</div>
+            <div class="topic-progress"><div class="progress-fill" style="width:62%; background:var(--accent-gold);"></div></div>
+          </div>
+          <span class="topic-pct">62%</span>
+        </div>
+        <div class="topic-item">
+          <div class="topic-icon" style="background:var(--accent-green-dim)"><span style="color:var(--accent-green)">📦</span></div>
+          <div class="topic-info">
+            <div class="topic-name">Data Structures</div>
+            <div class="topic-progress"><div class="progress-fill" style="width:78%; background:var(--accent-green);"></div></div>
+          </div>
+          <span class="topic-pct">78%</span>
+        </div>
+      </div>
+
+      <!-- Recent Errors -->
+      <div class="dashboard-card">
+        <div class="dashboard-card-header">
+          <h3><i class="fas fa-history" style="color:var(--accent-cyan); margin-right:8px;"></i> Recent Errors</h3>
+        </div>
+        <table class="error-table">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>File</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="error-type-badge type-error">TypeError</span></td>
+              <td>main.py</td>
+              <td>2 min ago</td>
+            </tr>
+            <tr>
+              <td><span class="error-type-badge syntax-error">SyntaxError</span></td>
+              <td>utils.py</td>
+              <td>15 min ago</td>
+            </tr>
+            <tr>
+              <td><span class="error-type-badge name-error">NameError</span></td>
+              <td>main.py</td>
+              <td>1 hr ago</td>
+            </tr>
+            <tr>
+              <td><span class="error-type-badge type-error">TypeError</span></td>
+              <td>main.py</td>
+              <td>2 hr ago</td>
+            </tr>
+            <tr>
+              <td><span class="error-type-badge value-error">ValueError</span></td>
+              <td>utils.py</td>
+              <td>Yesterday</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Recommended Practice -->
+    <div class="dashboard-card" style="margin-bottom:40px;">
+      <div class="dashboard-card-header">
+        <h3><i class="fas fa-lightbulb" style="color:var(--accent-gold); margin-right:8px;"></i> Recommended Practice</h3>
+      </div>
+      <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:14px;">
+        <div class="practice-item" style="flex-direction:column; align-items:flex-start; padding:18px;">
+          <div class="practice-icon" style="background:var(--accent-red-dim); margin-bottom:10px;">
+            <i class="fas fa-exchange-alt" style="color:var(--accent-red);"></i>
+          </div>
+          <span style="font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:4px;">Fix Type Errors</span>
+          <span style="font-size:12px; color:var(--text-tertiary);">Practice converting data types correctly</span>
+        </div>
+        <div class="practice-item" style="flex-direction:column; align-items:flex-start; padding:18px;">
+          <div class="practice-icon" style="background:var(--accent-blue-dim); margin-bottom:10px;">
+            <i class="fas fa-keyboard" style="color:var(--accent-blue);"></i>
+          </div>
+          <span style="font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:4px;">Input Handling</span>
+          <span style="font-size:12px; color:var(--text-tertiary);">Learn proper input validation techniques</span>
+        </div>
+        <div class="practice-item" style="flex-direction:column; align-items:flex-start; padding:18px;">
+          <div class="practice-icon" style="background:var(--accent-green-dim); margin-bottom:10px;">
+            <i class="fas fa-spell-check" style="color:var(--accent-green);"></i>
+          </div>
+          <span style="font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:4px;">Syntax Mastery</span>
+          <span style="font-size:12px; color:var(--text-tertiary);">Reduce syntax errors with guided exercises</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // ===== Chart.js Charts =====
+    const ctxTrend = document.getElementById('errorTrendChart').getContext('2d');
+    new Chart(ctxTrend, {
+      type: 'line',
+      data: {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        datasets: [
+          {
+            label: 'Errors',
+            data: [8, 6, 5, 7, 3, 4, 2],
+            borderColor: '#f87171',
+            backgroundColor: 'rgba(248, 113, 113, 0.1)',
+            tension: 0.4,
+            fill: true,
+            pointBackgroundColor: '#f87171',
+            pointRadius: 4,
+            pointHoverRadius: 6,
+          },
+          {
+            label: 'Code Runs',
+            data: [12, 10, 14, 11, 15, 8, 13],
+            borderColor: '#4a7cff',
+            backgroundColor: 'rgba(74, 124, 255, 0.08)',
+            tension: 0.4,
+            fill: true,
+            pointBackgroundColor: '#4a7cff',
+            pointRadius: 4,
+            pointHoverRadius: 6,
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            labels: { color: '#8b95b0', font: { family: 'Inter', size: 12 }, usePointStyle: true, pointStyle: 'circle' }
+          }
+        },
+        scales: {
+          x: { ticks: { color: '#5a6380', font: { family: 'Inter' } }, grid: { color: 'rgba(255,255,255,0.04)' } },
+          y: { ticks: { color: '#5a6380', font: { family: 'Inter' } }, grid: { color: 'rgba(255,255,255,0.04)' }, beginAtZero: true }
+        }
+      }
+    });
+
+    const ctxTypes = document.getElementById('errorTypesChart').getContext('2d');
+    new Chart(ctxTypes, {
+      type: 'doughnut',
+      data: {
+        labels: ['TypeError', 'SyntaxError', 'NameError', 'ValueError', 'IndexError'],
+        datasets: [{
+          data: [35, 25, 18, 12, 10],
+          backgroundColor: ['#f87171', '#fb923c', '#a78bfa', '#f0c040', '#22d3ee'],
+          borderWidth: 0,
+          hoverOffset: 8,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '65%',
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { color: '#8b95b0', font: { family: 'Inter', size: 11 }, padding: 12, usePointStyle: true, pointStyle: 'circle' }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

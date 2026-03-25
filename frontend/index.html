@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="BugMind AI - AI-powered coding assistant with real-time error detection and personalized learning">
+  <title>BugMind AI — Code Editor</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+  <!-- =========== TOP NAVIGATION BAR =========== -->
+  <header class="topbar">
+    <div class="topbar-logo" onclick="location.href='index.html'">
+      <div class="logo-icon">🧠</div>
+      <span class="logo-text">BugMind AI</span>
+    </div>
+
+    <nav class="topbar-nav">
+      <a href="index.html" class="active" id="nav-dashboard">
+        <span class="nav-icon"><i class="fas fa-columns"></i></span>
+        Dashboard
+      </a>
+      <a href="dashboard.html" id="nav-learning">
+        <span class="nav-icon"><i class="fas fa-graduation-cap"></i></span>
+        Learning Hub
+      </a>
+      <a href="#" id="nav-community">
+        <span class="nav-icon"><i class="fas fa-users"></i></span>
+        Community
+      </a>
+      <a href="#" id="nav-settings">
+        <span class="nav-icon"><i class="fas fa-sliders-h"></i></span>
+        Settings
+      </a>
+    </nav>
+
+    <div class="topbar-user" id="user-menu">
+      <div class="user-avatar">MH</div>
+      <span class="user-name">Soyle</span>
+      <span class="user-dropdown"><i class="fas fa-chevron-down"></i></span>
+    </div>
+  </header>
+
+  <!-- =========== MAIN 3-COLUMN LAYOUT =========== -->
+  <div class="main-layout">
+
+    <!-- ===== LEFT SIDEBAR - FILE EXPLORER ===== -->
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-header">
+          <span class="section-title">Explorer</span>
+        </div>
+        <ul class="file-tree" id="file-tree">
+          <li>
+            <div class="tree-item folder" onclick="toggleFolder(this)">
+              <span class="tree-arrow open"><i class="fas fa-chevron-right"></i></span>
+              <span class="file-icon"><i class="fas fa-folder-open"></i></span>
+              <span class="file-name">WebProject</span>
+            </div>
+            <ul class="sub-tree" id="folder-webproject">
+              <li>
+                <div class="tree-item python active" data-file="main.py" onclick="selectFile(this, 'main.py')">
+                  <span class="file-icon"><i class="fab fa-python"></i></span>
+                  <span class="file-name">main.py</span>
+                </div>
+              </li>
+              <li>
+                <div class="tree-item python" data-file="utils.py" onclick="selectFile(this, 'utils.py')">
+                  <span class="file-icon"><i class="fab fa-python"></i></span>
+                  <span class="file-name">utils.py</span>
+                </div>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <div class="tree-item folder" onclick="toggleFolder(this)">
+              <span class="tree-arrow"><i class="fas fa-chevron-right"></i></span>
+              <span class="file-icon"><i class="fas fa-folder"></i></span>
+              <span class="file-name">Shared Input</span>
+            </div>
+            <ul class="sub-tree hidden">
+              <li>
+                <div class="tree-item" data-file="input.txt" onclick="selectFile(this, 'input.txt')">
+                  <span class="file-icon"><i class="fas fa-file-alt"></i></span>
+                  <span class="file-name">input.txt</span>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- ===== CENTER - EDITOR + BOTTOM PANEL ===== -->
+    <main class="editor-area">
+      <!-- Editor Tabs -->
+      <div class="editor-tabs">
+        <button class="editor-tab active" id="tab-main">
+          <span class="tab-icon"><i class="fab fa-python"></i></span>
+          main.py
+          <span class="tab-close" onclick="event.stopPropagation()">&times;</span>
+        </button>
+        <button class="editor-tab" id="tab-mycode">
+          <span class="tab-icon"><i class="fas fa-code"></i></span>
+          My Code
+          <span class="tab-close" onclick="event.stopPropagation()">&times;</span>
+        </button>
+        <div class="editor-tab-separator">
+          <div class="tab-language">
+            <i class="fab fa-python"></i>
+            <span>Python</span>
+          </div>
+          <span class="tab-actions" style="color:var(--text-tertiary); cursor:pointer; font-size:16px;">
+            <i class="fas fa-ellipsis-h"></i>
+          </span>
+        </div>
+      </div>
+
+      <!-- Monaco Editor Container -->
+      <div class="editor-container" id="editor-wrapper">
+        <div id="monaco-editor"></div>
+
+        <!-- Error Popup Overlay -->
+        <div class="error-popup" id="error-popup">
+          <div class="error-popup-header">
+            <span class="error-popup-title">Possible Type Error:</span>
+            <span class="error-popup-badge"><i class="fas fa-robot"></i> AI Fix</span>
+          </div>
+          <p class="error-popup-desc">Comparing string to integer. Did you mean...</p>
+          <div class="error-popup-code">
+            <code>if int(age) > 18:</code>
+            <button class="btn-autofix" onclick="applyAutoFix()">
+              <i class="fas fa-magic"></i> Auto Fix
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== BOTTOM PANEL ===== -->
+      <div class="bottom-panel" id="bottom-panel">
+        <!-- Fixes & Suggestions Area -->
+        <div class="fixes-section">
+          <div class="fixes-header">
+            <span class="staged-badge"><i class="fas fa-exclamation-triangle"></i> Staged</span>
+            <span class="fixes-title"><i class="fas fa-lightbulb" style="color:var(--accent-gold)"></i> Fixes &amp; Suggestions</span>
+          </div>
+
+          <div class="fix-item">
+            <div class="fix-item-left">
+              <div class="error-count">5</div>
+              <div class="fix-info">
+                <h4>Type Errors</h4>
+                <p>type blens · Integers</p>
+              </div>
+            </div>
+            <span class="close-btn"><i class="fas fa-times"></i></span>
+          </div>
+
+          <div class="fix-suggestion">
+            <span class="suggestion-icon"><i class="fas fa-robot"></i></span>
+            <span class="suggestion-text">Practice goto input handling Possible Type Errors..</span>
+          </div>
+
+          <div class="fix-suggestion">
+            <span class="suggestion-icon"><i class="fas fa-bolt"></i></span>
+            <code>int(age) > 18:</code>
+            <button class="btn-autofix" onclick="applyAutoFix()">Auto Fix</button>
+          </div>
+
+          <div class="fix-suggestion">
+            <span class="suggestion-icon"><i class="fas fa-brain"></i></span>
+            <span class="suggestion-text">Processing brow means ins string to integers, &amp;+++</span>
+            <button class="btn-autofix" onclick="applyAutoFix()">Auto Fix</button>
+          </div>
+        </div>
+
+        <!-- Bottom Tabs -->
+        <div class="bottom-bar-footer">
+          <div class="bottom-brand">
+            <span class="brand-icon">🧠</span>
+            BugMind AI
+          </div>
+          <div class="bottom-tabs" style="border:none;">
+            <button class="bottom-tab active" onclick="switchBottomTab(this, 'problems')">
+              <i class="fas fa-exclamation-circle"></i> Problems
+              <span class="tab-badge">5</span>
+            </button>
+            <button class="bottom-tab" onclick="switchBottomTab(this, 'output')">
+              <i class="fas fa-terminal"></i> Output
+            </button>
+            <button class="bottom-tab" onclick="switchBottomTab(this, 'logs')">
+              <i class="fas fa-list-alt"></i> Logs
+            </button>
+            <button class="bottom-tab" onclick="switchBottomTab(this, 'tests')">
+              <i class="fas fa-vial"></i> Tests
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ===== RIGHT PANEL - AI ASSISTANT ===== -->
+    <aside class="ai-panel">
+      <!-- AI Header -->
+      <div class="ai-panel-header">
+        <div class="ai-logo">
+          <div class="ai-icon">🧠</div>
+          <h3>BugMind AI</h3>
+        </div>
+        <div class="ai-status">
+          <span class="status-dot"></span>
+          ONLINE
+        </div>
+      </div>
+
+      <!-- AI Body -->
+      <div class="ai-panel-body">
+        <!-- AI Message -->
+        <div class="ai-message">
+          <p class="message-text">
+            Oops! It looks like you're comparing <strong>a string</strong> to an integer. Try converting the input to an integer!
+          </p>
+
+          <div class="ai-code-block">
+            <span class="code-label">suggested fix</span>
+            if int(age) > 18:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;integer)
+          </div>
+
+          <button class="btn-explain" id="btn-explain" onclick="explainError()">
+            Explain this error...
+            <span class="btn-sub">submit</span>
+          </button>
+        </div>
+
+        <!-- Coding Insights -->
+        <div class="ai-section">
+          <div class="ai-section-header">
+            <h4>Coding Insights</h4>
+            <span class="section-toggle">Notable <i class="fas fa-chevron-down"></i></span>
+          </div>
+
+          <div class="insight-item">
+            <span class="insight-icon" style="color:var(--accent-blue)">+</span>
+            <span class="insight-count">3</span>
+            <span class="insight-text">Type Errors</span>
+            <span class="insight-arrow"><i class="fas fa-chevron-down"></i></span>
+          </div>
+
+          <div class="insight-item">
+            <span class="insight-icon">📊</span>
+            <span class="insight-text">Improving input handling</span>
+          </div>
+        </div>
+
+        <!-- Recommended Practice -->
+        <div class="ai-section">
+          <div class="ai-section-header">
+            <h4>Recommended Practice</h4>
+            <span class="section-toggle">Settings <i class="fas fa-chevron-down"></i></span>
+          </div>
+
+          <div class="practice-item">
+            <div class="practice-icon" style="background:var(--accent-blue-dim)">
+              <i class="fas fa-wrench" style="color:var(--accent-blue)"></i>
+            </div>
+            <span class="practice-text">Fix Input Handling</span>
+          </div>
+
+          <div class="practice-item">
+            <div class="practice-icon" style="background:var(--accent-purple-dim)">
+              <i class="fas fa-book" style="color:var(--accent-purple)"></i>
+            </div>
+            <span class="practice-text">Topics Overview</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- Monaco Editor CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/loader.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
